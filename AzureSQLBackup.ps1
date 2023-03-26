@@ -105,7 +105,7 @@ $databases | foreach-Object -parallel {
         foreach ($database in $USING:databases) {
             if ($database.DatabaseName.Equals("$($db.DatabaseName)COPY")) {
                 log "Deleted existing COPY Database, indicating previous backup didn't run correctly."
-                Remove-AzSqlDatabase -DatabaseName "$($db.DatabaseName)COPY" -ServerName $db.ServerName -ResourceGroupName $db.ResourceGroupName -Force) {
+                Remove-AzSqlDatabase -DatabaseName "$($db.DatabaseName)COPY" -ServerName $db.ServerName -ResourceGroupName $db.ResourceGroupName -Force
                 Start-Sleep -Seconds 600
             }
         }
