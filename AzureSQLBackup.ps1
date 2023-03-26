@@ -1,6 +1,7 @@
 #AzureSQLBackup
 #2023.03.26 JP
 #potsolutions.nl
+#This code requires PowerShell 7.1!
 
 Update-AzConfig -DisplayBreakingChangeWarning $false
 
@@ -103,10 +104,9 @@ $databases | foreach-Object -parallel {
         log "Starting Backup..."
         foreach ($database in $USING:databases) {
             if ($database.DatabaseName.Equals("$($db.DatabaseName)COPY")) {
-                if (Remove-AzSqlDatabase -DatabaseName "$($db.DatabaseName)COPY" -ServerName $db.ServerName -ResourceGroupName $db.ResourceGroupName -Force) {
-                    log "Deleted existing COPY Database, indicating previous backup didn't run correctly."
-                    Start-Sleep -Seconds 600
-                }
+                log "Deleted existing COPY Database, indicating previous backup didn't run correctly."
+                Remove-AzSqlDatabase -DatabaseName "$($db.DatabaseName)COPY" -ServerName $db.ServerName -ResourceGroupName $db.ResourceGroupName -Force) {
+                Start-Sleep -Seconds 600
             }
         }
         
